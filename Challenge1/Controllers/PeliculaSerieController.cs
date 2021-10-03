@@ -31,13 +31,11 @@ namespace Challenge1.Controllers
             private readonly ApplicationDbContext _context;
             private readonly IPeliculaSerieRepository _repository;
             private readonly IMapper _mapper;
-            private readonly LinkGenerator _linkGenerator;
-            public PeliculaSerieController(ApplicationDbContext context, IPeliculaSerieRepository repository, IMapper mapper, LinkGenerator linkGenerator)
+            public PeliculaSerieController(ApplicationDbContext context, IPeliculaSerieRepository repository, IMapper mapper)
             {
                 _context = context;
                 _repository = repository;
                 _mapper = mapper;
-                _linkGenerator = linkGenerator;
             }
 
 

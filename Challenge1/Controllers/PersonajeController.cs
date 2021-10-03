@@ -23,13 +23,11 @@ namespace Challenge1.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IPersonajesRepository _repository;
         private readonly IMapper _mapper;
-        private readonly LinkGenerator _linkGenerator;
-        public PersonajeController(ApplicationDbContext context, IPersonajesRepository repository, IMapper mapper,LinkGenerator linkGenerator)
+        public PersonajeController(ApplicationDbContext context, IPersonajesRepository repository, IMapper mapper )
         {
             _context = context;
             _repository = repository;
             _mapper = mapper;
-            _linkGenerator = linkGenerator;
         }
         //async
 

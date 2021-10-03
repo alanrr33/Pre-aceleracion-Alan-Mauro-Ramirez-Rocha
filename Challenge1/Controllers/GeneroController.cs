@@ -23,13 +23,11 @@ namespace Challenge1.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IGeneroRepository _repository;
         private readonly IMapper _mapper;
-        private readonly LinkGenerator _linkGenerator;
-        public GeneroController(ApplicationDbContext context, IGeneroRepository repository, IMapper mapper, LinkGenerator linkGenerator)
+        public GeneroController(ApplicationDbContext context, IGeneroRepository repository, IMapper mapper)
         {
             _context = context;
             _repository = repository;
             _mapper = mapper;
-            _linkGenerator = linkGenerator;
         }
 
 
