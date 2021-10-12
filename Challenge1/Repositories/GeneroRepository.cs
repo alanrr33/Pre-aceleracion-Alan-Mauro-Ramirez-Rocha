@@ -79,39 +79,6 @@ namespace Challenge1.Repositories
             return await query.FirstOrDefaultAsync();
         }
 
-
-        //sync
-        public IEnumerable<Genero> GetGeneros()
-        {
-            return context.Generos.ToList();
-        }
-
-        public Genero GetGeneroById(int id)
-        {
-            return context.Generos.Find(id);
-        }
-
-        public void AddGenero(Genero genero)
-        {
-            context.Generos.Add(genero);
-        }
-
-        public void DeleteGenero(int id)
-        {
-            Genero genero = context.Generos.Find(id);
-            context.Generos.Remove(genero);
-        }
-
-        public void UpdateGenero(Genero genero)
-        {
-            context.Entry(genero).State = EntityState.Modified;
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
-        }
-
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)

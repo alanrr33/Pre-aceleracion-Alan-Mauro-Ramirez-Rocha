@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 namespace Challenge1.Interfaces
 {
 
-
-
     public interface IPeliculaSerieRepository : IDisposable
     {
         //async
@@ -22,14 +20,5 @@ namespace Challenge1.Interfaces
         Task<PeliculaSerie[]> GetAllPeliSeriesByName(string name, string orden);
         Task<PeliculaSerie[]> GetAllPeliSeriesById(int? generoId, string orden);
 
-
-        //sync
-        /*
-        IEnumerable<PeliculaSerie> GetPeliculaSeries();
-        PeliculaSerie GetPeliculaSerieById(int id);
-        void AddPeliculaSerie(PeliculaSerie peliserie);
-        void DeletePeliculaSerie(int peliserieId);
-        void UpdatePeliculaSerie(PeliculaSerie peliserie);
-        void Save();*/
     }
 }

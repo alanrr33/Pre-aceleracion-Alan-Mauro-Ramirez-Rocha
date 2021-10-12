@@ -40,7 +40,7 @@ namespace Challenge1
         {
 
             //sendgrid
-            services.AddTransient<IMailService,SendGridMailService>();
+            services.AddTransient<IMailService, MailServiceRepository>();
 
             //evitar recursión infinita
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -106,7 +106,7 @@ namespace Challenge1
 
 
             //añadimos a swagger la posibilidad de usar la autenticación
-            services.AddControllers();
+            //services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Challenge1", Version = "v1" });

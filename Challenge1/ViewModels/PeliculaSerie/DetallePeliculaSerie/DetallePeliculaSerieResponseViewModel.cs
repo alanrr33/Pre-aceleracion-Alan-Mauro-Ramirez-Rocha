@@ -1,10 +1,8 @@
 ﻿using Challenge1.ViewModels.Personaje.CrearPersonaje;
-using Challenge1.ViewModels.Personaje.DetallePersonaje;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Challenge1.ViewModels.PeliculaSerie.DetallePeliculaSerie
 {

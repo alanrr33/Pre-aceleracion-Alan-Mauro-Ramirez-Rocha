@@ -3,7 +3,6 @@ using Challenge1.Entities;
 using Challenge1.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -39,9 +38,6 @@ namespace Challenge1.Repositories
             return (await context.SaveChangesAsync()) > 0;
         }
 
-
-
-
         public async Task<Personaje[]> GetAllPersonajesAsync()
         {
             IQueryable<Personaje> query = context.Personajes;
@@ -67,9 +63,6 @@ namespace Challenge1.Repositories
         {
             IQueryable<Personaje> query = context.Personajes;
 
-            /*query = query.Include(c => c.PeliculasSeries)
-                    .ThenInclude((c => c.Genero));*/
-            // hacer query
             query = query.Where(c => c.Id == id);
 
             return await query.FirstOrDefaultAsync();
@@ -78,41 +71,14 @@ namespace Challenge1.Repositories
         public async Task<Personaje[]> GetAllPersonajesByName(string name)
         {
 
-
             IQueryable<Personaje> query = context.Personajes;
 
-            //query = query.Include(c => c.PeliculasSeries);
 
-           /* if (!string.IsNullOrEmpty(name) & edad == null & peso == null & peliSerieId == null)
-            {*/
             query = query.OrderBy(c => c.Nombre).Include(c => c.PeliculasSeries).Where(c => c.Nombre.Contains(name));
-            //}
-
-            /*if (edad != null & edad>0 & string.IsNullOrEmpty(name) & peso == null & peliSerieId ==null)
-            {
-                query = query.Include(c => c.PeliculasSeries).Where(c => c.Edad == edad);
-            }
-
-            if (peso != null)
-            {
-                  query = query.Include(c => c.PeliculasSeries).Where(c => c.Peso == peso);
-            }
-
-
-            if (peliSerieId != null | peliSerieId>0)
-            {
-                //buscar en las relaciones externas
-                
-                query = query.Where(c => c.PeliculasSeries.Any(c =>c.Id==peliSerieId));
-                
-
-            }*/
-
+    
 
             // Ordenar
             query = query.OrderByDescending(c => c.Id);
-              //.Where(c => c.Nombre == name);
-
 
             return await query.ToArrayAsync();
         }

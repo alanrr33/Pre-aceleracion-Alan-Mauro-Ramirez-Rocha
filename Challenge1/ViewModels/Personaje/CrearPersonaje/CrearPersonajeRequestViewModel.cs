@@ -1,9 +1,4 @@
-﻿using Challenge1.ViewModels.PeliculaSerie.CrearPeliculaSerie;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace Challenge1.ViewModels.Personaje.CrearPersonaje
 {
     public class CrearPersonajeRequestViewModel

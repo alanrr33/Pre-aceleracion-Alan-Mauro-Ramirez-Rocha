@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace Challenge1.ViewModels.Genero.Get
 {
     public class GetAllGenerosResponseViewModel

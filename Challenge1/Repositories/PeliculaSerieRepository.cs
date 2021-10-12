@@ -3,7 +3,6 @@ using Challenge1.Entities;
 using Challenge1.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,7 +43,7 @@ namespace Challenge1.Repositories
         public async Task<PeliculaSerie[]> GetAllPeliSeriesAsync()
         {
             IQueryable<PeliculaSerie> query = context.PeliculasSeries;
-            // Ordenar
+
             query = query.OrderByDescending(c => c.Id);
 
             return await query.ToArrayAsync();
@@ -94,7 +93,6 @@ namespace Challenge1.Repositories
             
             if (name!=null & orden == "desc")
             {
-                // Ordenar
                 query = query.OrderByDescending(c => c.FechaCreacion)
                   .Where(c => c.Titulo.Contains(name));
             }

@@ -23,7 +23,7 @@ namespace Challenge1.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         //sendgrid
-        private IMailService _mailService;
+        private readonly IMailService _mailService;
 
         public AuthenticationController(UserManager<User> userManager,SignInManager<User> signInManager, IMailService mailService)
         {
@@ -139,9 +139,6 @@ namespace Challenge1.Controllers
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 ValidTo = token.ValidTo
             };
-
-            //return token;
-
 
         }
     }

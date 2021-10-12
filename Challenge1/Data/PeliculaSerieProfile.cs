@@ -22,6 +22,7 @@ namespace Challenge1.Data
             //crear peliculas
             this.CreateMap<PeliculaSerie, CrearPeliculaSerieRequestViewModel>();
             this.CreateMap<CrearPeliculaSerieRequestViewModel, PeliculaSerie>();
+
             this.CreateMap<PeliculaSerie, CrearPeliculaSerieResponseViewModel>();
             this.CreateMap<CrearPeliculaSerieResponseViewModel, PeliculaSerie>();
 

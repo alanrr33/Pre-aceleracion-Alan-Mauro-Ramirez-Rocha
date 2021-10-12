@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -149,13 +148,13 @@ namespace Challenge1.Controllers
         {
             try
             {
-                var genero = await _repository.GetGeneroIdAsync(id);
-                if (genero == null)
+                var generoABorrar = await _repository.GetGeneroIdAsync(id);
+                if (generoABorrar == null)
                 {
                     return NotFound($"No se pudo encontrar un genero con el id:  {id}");
                 }
 
-                _repository.Delete(genero);
+                _repository.Delete(generoABorrar);
 
                 if (await _repository.SaveChangesAsync())
                 {

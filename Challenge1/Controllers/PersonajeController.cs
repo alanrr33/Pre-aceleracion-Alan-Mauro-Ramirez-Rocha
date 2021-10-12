@@ -232,13 +232,13 @@ namespace Challenge1.Controllers
         {
             try
             {
-                var pjViejo = await _repository.GetPersonajeIdAsync(id);
-                if (pjViejo == null)
+                var pjABorrar = await _repository.GetPersonajeIdAsync(id);
+                if (pjABorrar == null)
                 {
                     return NotFound($"No se pudo encontrar un personaje con el id {id}");
                 }
 
-                _repository.Delete(pjViejo);
+                _repository.Delete(pjABorrar);
 
                 if (await _repository.SaveChangesAsync())
                 {

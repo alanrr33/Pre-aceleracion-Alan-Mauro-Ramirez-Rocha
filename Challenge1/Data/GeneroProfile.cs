@@ -18,6 +18,7 @@ namespace Challenge1.Data
             //post
             this.CreateMap<Genero, CrearGeneroRequestViewModel>();
             this.CreateMap<Genero, CrearGeneroResponseViewModel>();
+
             this.CreateMap<CrearGeneroRequestViewModel, Genero>();
             this.CreateMap<CrearGeneroResponseViewModel, Genero>();
 
