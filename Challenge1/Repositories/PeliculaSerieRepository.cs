@@ -78,7 +78,7 @@ namespace Challenge1.Repositories
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<PeliculaSerie[]> GetAllPeliSeriesByName(string name, int? generoId, bool ordenAsc = true)
+        public async Task<PeliculaSerie[]> GetAllPeliSeriesByName(string name,string orden)
         {
 
 
@@ -87,82 +87,44 @@ namespace Challenge1.Repositories
             query = query.Include(c => c.Personajes);
             
 
-            if (name!=null && ordenAsc==true)
+            if (name!=null & orden=="asc")
             {
                 query = query.OrderBy(c => c.FechaCreacion).Where(c => c.Titulo.Contains(name));
             }
             
-            if (name!=null & ordenAsc == false)
+            if (name!=null & orden == "desc")
             {
                 // Ordenar
                 query = query.OrderByDescending(c => c.FechaCreacion)
                   .Where(c => c.Titulo.Contains(name));
             }
 
-            if (generoId!= null & ordenAsc==true)
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<PeliculaSerie[]> GetAllPeliSeriesById(int? generoId, string orden)
+        {
+
+
+            IQueryable<PeliculaSerie> query = context.PeliculasSeries.Include(c => c.Genero);
+
+            query = query.Include(c => c.Personajes);
+
+            if (generoId != null & orden =="asc")
             {
                 query = query.OrderBy(c => c.FechaCreacion)
                     .Where(c => c.Genero.Id == generoId);
             }
 
-            if (generoId != null & ordenAsc == false)
+            if (generoId != null & orden == "desc")
             {
                 query = query.OrderByDescending(c => c.FechaCreacion)
                     .Where(c => c.Genero.Id == generoId);
             }
 
-
-
-
-
-
-
             return await query.ToArrayAsync();
         }
 
-        //sync
-
-        public IEnumerable<PeliculaSerie> GetPeliculaSeries()
-        {
-            //return context.PeliculasSeries.ToList();
-
-            //traer el objeto con la data relacionada
-            IQueryable<PeliculaSerie> query = context.PeliculasSeries
-                .Include(c => c.Personajes);
-            // Ordenar 
-
-            query = query.OrderByDescending(c => c.Id);
-
-            return query.ToList();
-
-
-        }
-
-        public PeliculaSerie GetPeliculaSerieById(int id)
-        {
-            return context.PeliculasSeries.Find(id);
-        }
-
-        public void AddPeliculaSerie(PeliculaSerie peliserie)
-        {
-            context.PeliculasSeries.Add(peliserie);
-        }
-
-        public void DeletePeliculaSerie(int id)
-        {
-            PeliculaSerie peliserie = context.PeliculasSeries.Find(id);
-            context.PeliculasSeries.Remove(peliserie);
-        }
-
-        public void UpdatePeliculaSerie(PeliculaSerie peliserie)
-        {
-            context.Entry(peliserie).State = EntityState.Modified;
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
-        }
 
         private bool disposed = false;
 

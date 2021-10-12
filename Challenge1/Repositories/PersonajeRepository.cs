@@ -75,7 +75,7 @@ namespace Challenge1.Repositories
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<Personaje[]> GetAllPersonajesByName(string name, int? edad, float? peso, int? peliSerieId)
+        public async Task<Personaje[]> GetAllPersonajesByName(string name)
         {
 
 
@@ -83,12 +83,12 @@ namespace Challenge1.Repositories
 
             //query = query.Include(c => c.PeliculasSeries);
 
-            if (name != null)
-            {
-                query = query.OrderBy(c => c.Nombre).Include(c => c.PeliculasSeries).Where(c => c.Nombre.Contains(name));
-            }
+           /* if (!string.IsNullOrEmpty(name) & edad == null & peso == null & peliSerieId == null)
+            {*/
+            query = query.OrderBy(c => c.Nombre).Include(c => c.PeliculasSeries).Where(c => c.Nombre.Contains(name));
+            //}
 
-            if (edad != null)
+            /*if (edad != null & edad>0 & string.IsNullOrEmpty(name) & peso == null & peliSerieId ==null)
             {
                 query = query.Include(c => c.PeliculasSeries).Where(c => c.Edad == edad);
             }
@@ -99,19 +99,66 @@ namespace Challenge1.Repositories
             }
 
 
-            if (peliSerieId != null)
+            if (peliSerieId != null | peliSerieId>0)
             {
                 //buscar en las relaciones externas
                 
                 query = query.Where(c => c.PeliculasSeries.Any(c =>c.Id==peliSerieId));
                 
 
-            }
+            }*/
 
 
             // Ordenar
             query = query.OrderByDescending(c => c.Id);
               //.Where(c => c.Nombre == name);
+
+
+            return await query.ToArrayAsync();
+        }
+
+
+        public async Task<Personaje[]> GetAllPersonajesByEdad(int? edad)
+        {
+
+
+            IQueryable<Personaje> query = context.Personajes;
+       
+            query = query.Include(c => c.PeliculasSeries).Where(c => c.Edad == edad);
+            
+
+            // Ordenar
+            query = query.OrderByDescending(c => c.Id);
+  
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Personaje[]> GetAllPersonajesByPeso(float? peso)
+        {
+
+            IQueryable<Personaje> query = context.Personajes;
+          
+            query = query.Include(c => c.PeliculasSeries).Where(c => c.Peso == peso);
+            
+
+            // Ordenar
+            query = query.OrderByDescending(c => c.Id);
+
+            return await query.ToArrayAsync();
+        }
+
+
+        public async Task<Personaje[]> GetAllPersonajesByPeliSerieId(int? peliSerieId)
+        {
+
+            IQueryable<Personaje> query = context.Personajes;
+
+            //buscar en las relaciones externas
+                
+            query = query.Where(c => c.PeliculasSeries.Any(c =>c.Id==peliSerieId));
+                
+            // Ordenar
+            query = query.OrderByDescending(c => c.Id);
 
 
             return await query.ToArrayAsync();

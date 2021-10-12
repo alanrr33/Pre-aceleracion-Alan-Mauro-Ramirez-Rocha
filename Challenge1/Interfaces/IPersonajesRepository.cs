@@ -20,7 +20,13 @@ namespace Challenge1.Interfaces
 
         Task<Personaje> GetPersonajeNameAsync(string name);
         Task<Personaje> GetPersonajeIdAsync(int id);
-        Task<Personaje[]> GetAllPersonajesByName(string name, int? edad, float? peso, int? peliSerieId);
+        Task<Personaje[]> GetAllPersonajesByName(string name);
+
+        Task<Personaje[]> GetAllPersonajesByEdad(int? edad);
+        Task<Personaje[]> GetAllPersonajesByPeso(float? peso);
+        Task<Personaje[]> GetAllPersonajesByPeliSerieId(int? peliSerieId);
+
+
 
 
     }

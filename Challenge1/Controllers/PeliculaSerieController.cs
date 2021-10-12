@@ -87,13 +87,13 @@ namespace Challenge1.Controllers
 
             //busqueda
             [HttpGet("search")]
-            public async Task<ActionResult<DetallePeliculaSerieResponseViewModel[]>> SearchPeliculaSerie(string name, int? generoId, bool fechaAsc = true)
+            public async Task<ActionResult<DetallePeliculaSerieResponseViewModel[]>> SearchPeliculaSerie(string name, int? generoId, string orden)
             {
 
-                if (name!=null | generoId!=null) { 
+                if (name!=null & generoId==null) { 
                     try
                     {
-                        var resultados = await _repository.GetAllPeliSeriesByName(name, generoId, fechaAsc);
+                        var resultados = await _repository.GetAllPeliSeriesByName(name, orden);
                         if (!resultados.Any()) return NotFound();
 
                         return _mapper.Map<DetallePeliculaSerieResponseViewModel[]>(resultados);
@@ -105,6 +105,30 @@ namespace Challenge1.Controllers
 
                     }
                 }
+
+                if (name == null & generoId != null & generoId>0)
+                {
+                    try
+                    {
+                        var resultados = await _repository.GetAllPeliSeriesById(generoId, orden);
+                        if (!resultados.Any()) return NotFound();
+
+                        return _mapper.Map<DetallePeliculaSerieResponseViewModel[]>(resultados);
+                    }
+                    catch (Exception)
+                    {
+
+                        return this.StatusCode(StatusCodes.Status500InternalServerError, "Fallo db");
+
+                    }
+                }
+
+
+
+
+
+
+
                 return this.StatusCode(StatusCodes.Status400BadRequest, "Por favor utilice algún parametro de busqueda");
 
 

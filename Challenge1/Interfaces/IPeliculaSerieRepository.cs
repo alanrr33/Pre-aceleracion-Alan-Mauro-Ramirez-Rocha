@@ -19,14 +19,17 @@ namespace Challenge1.Interfaces
         Task<PeliculaSerie[]> GetAllPeliSeriesAsync();
         Task<PeliculaSerie> GetPeliSerieAsyncId(int peliserieId);
         Task<PeliculaSerie> GetPeliSerieAsyncName(string name);
-        Task<PeliculaSerie[]> GetAllPeliSeriesByName(string name, int? generoId, bool ordenAsc = true);
+        Task<PeliculaSerie[]> GetAllPeliSeriesByName(string name, string orden);
+        Task<PeliculaSerie[]> GetAllPeliSeriesById(int? generoId, string orden);
+
 
         //sync
+        /*
         IEnumerable<PeliculaSerie> GetPeliculaSeries();
         PeliculaSerie GetPeliculaSerieById(int id);
         void AddPeliculaSerie(PeliculaSerie peliserie);
         void DeletePeliculaSerie(int peliserieId);
         void UpdatePeliculaSerie(PeliculaSerie peliserie);
-        void Save();
+        void Save();*/
     }
 }

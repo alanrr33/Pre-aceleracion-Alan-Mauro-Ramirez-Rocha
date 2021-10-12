@@ -33,7 +33,7 @@ namespace Challenge1.Controllers
 
         //listar personajes
         //vamos a declarar que tipo de operación vamos a usar
-        [HttpGet("listar")]
+        [HttpGet("list")]
         public async Task<ActionResult<ListarPersonajesResponseViewModel[]>> ListarPersonajes()
         {
 
@@ -77,10 +77,15 @@ namespace Challenge1.Controllers
         public async Task<ActionResult<CrearPersonajeResponseViewModel[]>> SearchPersonaje(string name,int? edad, float? peso, int? peliSerieId)
         {
 
-            if (name!=null | edad!=null | peso!=null | peliSerieId!=null) { 
+            //separar busqueda en nombre, edad, peso e id no hacerlas todas juntas
+
+            //nombre
+
+            if (!string.IsNullOrEmpty(name) & edad == null & peso == null & peliSerieId == null)
+            { 
                 try
                 {
-                    var resultados = await _repository.GetAllPersonajesByName(name,edad,peso,peliSerieId);
+                    var resultados = await _repository.GetAllPersonajesByName(name);
                     if (!resultados.Any()) return NotFound();
 
                     return _mapper.Map<CrearPersonajeResponseViewModel[]>(resultados);
@@ -93,7 +98,74 @@ namespace Challenge1.Controllers
                 }
 
             }
-            return this.StatusCode(StatusCodes.Status400BadRequest, "Por favor utilice algún parametro de busqueda");
+
+            //edad
+
+            if (edad != null & edad >0 & string.IsNullOrEmpty(name) & peso == null & peliSerieId == null)
+            {
+                try
+                {
+                    var resultados = await _repository.GetAllPersonajesByEdad(edad);
+                    if (!resultados.Any()) return NotFound();
+
+                    return _mapper.Map<CrearPersonajeResponseViewModel[]>(resultados);
+                }
+                catch (Exception)
+                {
+
+                    return this.StatusCode(StatusCodes.Status500InternalServerError, "Fallo db");
+
+                }
+
+            }
+
+
+
+            //peso
+
+            if (peso != null & peso > 0 & string.IsNullOrEmpty(name) & edad == null & peliSerieId == null)
+            {
+                try
+                {
+                    var resultados = await _repository.GetAllPersonajesByPeso(peso);
+                    if (!resultados.Any()) return NotFound();
+
+                    return _mapper.Map<CrearPersonajeResponseViewModel[]>(resultados);
+                }
+                catch (Exception)
+                {
+
+                    return this.StatusCode(StatusCodes.Status500InternalServerError, "Fallo db");
+
+                }
+
+            }
+
+
+
+            //id
+
+            if (peliSerieId != null & peliSerieId > 0 & string.IsNullOrEmpty(name) & edad == null & peso == null)
+            {
+                try
+                {
+                    var resultados = await _repository.GetAllPersonajesByPeliSerieId(peliSerieId);
+                    if (!resultados.Any()) return NotFound();
+
+                    return _mapper.Map<CrearPersonajeResponseViewModel[]>(resultados);
+                }
+                catch (Exception)
+                {
+
+                    return this.StatusCode(StatusCodes.Status500InternalServerError, "Fallo db");
+
+                }
+
+            }
+
+            return this.StatusCode(StatusCodes.Status400BadRequest, "Por favor utilice algún parametro valido en la busqueda o utilice solamente uno a la vez");
+
+
         }
 
         //crear objeto
